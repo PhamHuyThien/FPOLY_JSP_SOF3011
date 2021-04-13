@@ -22,6 +22,7 @@
             <thead>
             <th>id</th>
             <th>title</th>
+            <th>views</th>
             <th>favorite count</th>
             <th>last date</th>
             <th>oldest date</th>
@@ -36,10 +37,11 @@
                     int idVideos = resultSet.getInt("id_videos");
                     int countFav = resultSet.getInt("favorite");
                     Videos videos = new VideosDAO().get(idVideos);
-                    String line = "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n";
+                    String line = "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>\n";
                     line = String.format(line,
                             videos.getId(),
                             videos.getTitle(),
+                            videos.getViews(),
                             countFav,
                             Utils.toVnTime(videos.getTime()),
                             Utils.toVnTime(Utils.getTime())

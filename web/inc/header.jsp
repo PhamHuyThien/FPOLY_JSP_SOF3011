@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Assignment Java4</title>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     </head>
     <body>

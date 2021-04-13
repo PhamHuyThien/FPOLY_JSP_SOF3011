@@ -21,34 +21,24 @@
         List<Videos> lVideos = new VideosDAO().query(sql);
         for (int i = 0; i < lVideos.size(); i++) {
             Videos videos = lVideos.get(i);
-            String link = "https://www.youtube.com/embed/%s";
             Pattern p = Pattern.compile("v=(.+?)(&|$)");
             Matcher m = p.matcher(videos.getPoster());
             m.find();
-            link = String.format(link, m.group().replaceAll("v=|&$", ""));
-
-            boolean isLike = false;
-            if (users != null) {
-                isLike = new FavoritesDAO().query(
-                        "select * from favorites where id_users=? and id_videos=?",
-                        -1,
-                        -1,
-                        users.getId() + "",
-                        videos.getId() + ""
-                ).size() > 0;
-            }
+            String src = m.group().replaceAll("v=|&$", "");
     %>
-    <iframe width="700" height="500" src="<%=link%>" title="YouTube video player" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-    </iframe>
-    <h2><%=videos.getTitle()%> <span style="font-weight: normal; font-size: 15px">[<%=videos.getDescription()%>]</span></h3>
-        <button name="like" value="<%=videos.getId()%>"><%=isLike ? "UNLIKE" : "LIKE"%></button>
-        <button name="share" value="<%=videos.getId()%>">Share</button>
-        <br/>
-        <br/>
-        <%
-            }
-        %>
+    <a href="view?id_videos=<%=videos.getId()%>&id_ytb=<%=src%>">
+        <img src="https://img.youtube.com/vi/<%=src%>/maxresdefault.jpg"  width="700px"/>
+    </a>
+    <h2><%=videos.getTitle()%> 
+        <span style="font-weight: normal; font-size: 15px">[<%=videos.getDescription()%>]</span>
+        <a href="view?id_videos=<%=videos.getId()%>&id_ytb=<%=src%>">Xem video</a>
+    </h2>
+    <br/>
+    <br/>
+    <%
+        }
+    %>
 </form>
 
-        
+
 <%@include file="inc/footer.jsp" %>
